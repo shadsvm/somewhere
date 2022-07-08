@@ -56,7 +56,9 @@ const Create = () => {
     });
 
     // It's not secure solution. In future revalidation will be invoked by firebase functions.  
-    await fetch(window.location.origin + `/api/revalidate?key=${process.env.NEXT_PUBLIC_REVALIDATE_KEY}`)
+    const url = typeof window === 'undefined' ? process.env.NEXT_PUBLIC_URL : window.location.origin
+    await fetch(url + `/api/revalidate?key=${process.env.NEXT_PUBLIC_REVALIDATE_KEY}`)
+    
     setLoading(false)
     router.push('/')  
   }
