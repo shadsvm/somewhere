@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Credentials } from "../src/types"
 import { CgSpinner } from 'react-icons/cg'
 import { useAuth } from "../src/useAuth"
-import styles from '../styles/auth.module.css'
+import styles from '../src/styles/auth.module.css'
 
 const Register = () => {
 

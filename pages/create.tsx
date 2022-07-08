@@ -55,8 +55,10 @@ const Create = () => {
       }
     });
 
+    // It's not secure solution. In future revalidation will be invoked by firebase functions.  
+    await fetch(window.location.origin + `/api/revalidate?key=${process.env.NEXT_PUBLIC_REVALIDATE_KEY}`)
     setLoading(false)
-    router.push('/')
+    router.push('/')  
   }
 
   useEffect(() => {
