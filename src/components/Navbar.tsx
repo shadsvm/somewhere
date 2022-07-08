@@ -34,9 +34,10 @@ const Navbar = () => {
         
         {/* Logo */}
         <Link href='/'>
-          <div className='text-lg tracking-widest cursor-pointer'>
-            <span className='sm:hidden'>SW</span>
-            <span className='hidden sm:block'>SomeWhere</span>
+          <div className='text-lg tracking-widest cursor-pointer flex items-center'>
+            <img src="/logo.png" className='w-12 h-12' alt="" />
+            {/* <span className='sm:hidden'>SW</span> */}
+            <span className='hidden sm:block '>SOMEWHERE</span>
           </div>
         </Link>
         

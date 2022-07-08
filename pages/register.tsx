@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Credentials } from "../src/types"
 import { CgSpinner } from 'react-icons/cg'
 import { useAuth } from "../src/useAuth"
-import styles from '../src/styles/auth.module.css'
+import styles from '../src/styles/topography.module.css'
 
 const Register = () => {
 
@@ -23,7 +23,7 @@ const Register = () => {
   })
 
   useEffect(() => {
-    if (user) router.push('/')
+    if (user) router.push('/home')
   }, [user])
 
   const handleInput = (event:any) => setCredentials({...credentials, [event.target.name]: event.target.value})

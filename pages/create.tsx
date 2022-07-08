@@ -60,7 +60,7 @@ const Create = () => {
     await fetch(url + `/api/revalidate?key=${process.env.NEXT_PUBLIC_REVALIDATE_KEY}`)
     
     setLoading(false)
-    router.push('/')  
+    router.push('/home')  
   }
 
   useEffect(() => {
