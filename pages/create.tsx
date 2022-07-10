@@ -11,41 +11,62 @@ import dayjs from "dayjs"
 
 import { CgSpinner } from 'react-icons/cg'
 import Rating from "../src/components/Rating"
+import Carousel from "../src/components/Carousel"
 
 const Create = () => {
 
   const router = useRouter()
   const {user} = useAuth()
 
-  const [loading, setLoading] = useState(false)
-  const [preview, setPreview] = useState<string>()
-  const [image, setImage] = useState<any>()
   const [rating, setRating] = useState(0)
+  const [loading, setLoading] = useState(false)
+
+  const [images, setImages] = useState<String[]>([])
+  const [files, setFiles] = useState<File[]>([])
   
   const city = useRef<HTMLInputElement>(null)
   const title = useRef<HTMLInputElement>(null)
 
   const handleImg = (evt: any) => {
-    let file = evt.target.files[0]
-    if(file?.type.split('/')[0] !== 'image') {
-      setImage(undefined)
-      setPreview('')
+    for (let file of evt.target.files){
+      try {
+        if (file.type.split('/')[0] !== 'image') throw Error('This file is no an image')
+        let url = URL.createObjectURL(file)
+        setFiles(prev => {
+          if (prev.length && prev.find(f => f.name === file.name)) return [...prev]
+          else return [...prev, file]
+        })
+        setImages(prev => {
+          if (prev && prev.includes(url)) return [...prev]
+          else return [...prev, url]
+        })
+      } catch (error) { console.warn('file skipped, not an image') }
     }
-    else setImage(file)
   }
+
 
   const upload = async (evt:any) => {
     evt.preventDefault()
-    if (!image || !city.current!.value || !title.current!.value || !rating) return
+    if (!files || !city.current!.value || !title.current!.value || !rating) return
     setLoading(true)
-    const id = v4()
-    const imageRef = ref(storage, 'images/' + id)
-    const uploadResult = await uploadBytes(imageRef, image)
-    const imageURL = await getDownloadURL(uploadResult.ref)
     
+    const id = v4()
+    const urls = []
+
+    for (let file of files) {
+      console.log('Current File: ', file);
+      
+      const imageRef = ref(storage, 'images/' + file.name)
+      const uploadResult = await uploadBytes(imageRef, file)
+      const imageUrl = await getDownloadURL(uploadResult.ref)
+      urls.push( imageUrl )
+    }
+
+    console.log('URLs of files pushed to storage', urls);
+
     await setDoc(doc(database, "posts", id), {
       id: id,
-      url: imageURL,
+      urls: urls,
       user: user.displayName,
       city: city.current?.value.toLowerCase(),
       title: title.current?.value,
@@ -63,13 +84,17 @@ const Create = () => {
     router.push('/home')  
   }
 
-  useEffect(() => {
-    if (image) setPreview(URL.createObjectURL(image))
-  }, [image])
 
   useEffect(() => {
     if (!user) router.push('/login')
   }, [user])
+
+  useEffect(() => {
+    console.log(files, images);
+  }, [files, images])
+
+
+
 
   return user && (
     <div className="flex-1 flex flex-col justify-center items-center p-5">
@@ -77,12 +102,12 @@ const Create = () => {
       <div className="flex flex-col gap-6 w-10/12 sm:w-7/12 lg:w-5/12 xl:w-4/12 overflow-auto">
 
         {/* Preview */}
-        {preview && <img src={preview} alt="Uploaded image preview" className="w-full aspect-square object-cover rounded-lg" />}
+        {images.length > 0 && <Carousel images={images} /> }
 
         {/* Details */}
         <form onSubmit={upload} className=" w-full flex flex-col justify-center items-center gap-2">
           
-          <div className="w-full grid grid-cols-4 gap-3	justify-center items-center">
+          <div className="w-full grid grid-cols-4 gap-3 justify-center items-center">
             
             {/* File input */}
             <input type="file" className={` col-span-3 block text-sm text-slate-400 
@@ -97,7 +122,7 @@ const Create = () => {
             disabled={loading}
             multiple accept="image/*" />
 
-            {preview && (<>
+            {images.length > 0 && (<>
               <button type="submit" disabled={loading} className="col-span-1 flex justify-center items-center px-4 py-1 text-white bg-emerald-500 hover:bg-emerald-600 rounded-full">{loading ? <CgSpinner className="text-2xl animate-spin" /> : 'Upload'}</button>
               <input type="text" name="city"  disabled={loading} ref={city} required placeholder="City" className="col-span-2 w-full px-5 py-2 bg-neutral-100 dark:bg-neutral-700 font-normal rounded-full border-neutral-300 dark:border-neutral-600" />
               <Rating className="col-span-2 " userRating={rating} setUserRating={setRating}  />

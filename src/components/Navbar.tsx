@@ -5,7 +5,7 @@ import { useStore } from '../store'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useAuth } from '../useAuth'
-import { useState } from 'react'
+import { useState} from 'react'
 
 const Navbar = () => {
 
@@ -15,8 +15,8 @@ const Navbar = () => {
   const router = useRouter()
   const [menu, setMenu] = useState(false)
 
-  const submit = (evt:any) => {
-    evt.preventDefault()
+  const submit = (event:any) => {
+    event.preventDefault()
     router.push('/search')
   }
 
@@ -42,8 +42,8 @@ const Navbar = () => {
         </Link>
         
         {/* Search bar */}
-        <form onSubmit={submit} className="flex-1 flex items-center bg-neutral-100 text-black dark:bg-neutral-700 dark:text-white  rounded-full px-5 py-2">
-          <input type="text" value={query} onChange={evt => setQuery(evt.target.value)} className='bg-inherit flex-1' placeholder='Search by city... '/>
+        <form onSubmit={submit} className="flex-intial sm:flex-1 flex items-center bg-neutral-100 text-black dark:bg-neutral-700 dark:text-white  rounded-full px-5 py-2">
+          <input type="text" value={query} onChange={evt => setQuery(evt.target.value)} className='bg-inherit w-36 sm:flex-1' placeholder='Search by city... '/>
           <button type="submit"><IoSearch className='text-xl text-neutral-400' /></button>
         </form>
         
