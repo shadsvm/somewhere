@@ -68,7 +68,8 @@ const Create = () => {
     await setDoc(doc(database, "posts", id), {
       id: id,
       time: dayjs().format(),
-      user: user.displayName,
+      author: user.displayName,
+      author_uid: user.uid,
       city: city.current?.value.toLowerCase(),
       title: title.current?.value,
       images: uploadedImages,

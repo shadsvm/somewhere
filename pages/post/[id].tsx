@@ -58,7 +58,7 @@ const Post = () => {
         <section className="flex-1 flex flex-col justify-between items-start gap-5 p-5">
           <div className="flex flex-col items-start">
             <header className="text-2xl">{data.title}</header>
-            <Rating userRating={data.rating[data.user]} />
+            <Rating userRating={data.rating[data.author]} />
             <p className="font-normal my-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus maxime sapiente incidunt, quaerat nobis vel nihil recusandae voluptates soluta dolorum nam asperiores sit cupiditate natus placeat sed omnis minus accusamus.</p>
           </div>
 
@@ -66,13 +66,13 @@ const Post = () => {
           <div className="w-full flex justify-between items-center">
             <div>
               Posted by 
-              <Link href={'/user/'+data.user}>
-                <span className="text-emerald-500 cursor-pointer"> {data.user} </span>
+              <Link href={'/user/'+data.author}>
+                <span className="text-emerald-500 cursor-pointer"> {data.author} </span>
               </Link> 
               on {dayjs(data.time).format('DD/MM/YYYY')}
             </div>
 
-            {user && data.user === user.displayName && (
+            {user && data.author === user.displayName && (
             <div className="relative ">
               {menu && (
                 <div className="absolute -top-24 -left-12 z-0 bg-neutral-800 overflow-hidden rounded-md flex flex-col items-start ">

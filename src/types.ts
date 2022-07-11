@@ -1,6 +1,6 @@
 export interface Post{
   id: string,
-  user: string,
+  author: string,
   city: string,
   time: string,
   title: string,

@@ -14,7 +14,7 @@ const Modal = ({post, closeModal }: {post:Post, closeModal: () => void}) => {
   const [loading, setLoading] = useState(false)
 
   const deletePost = async () => {
-    if (post.user !== user.displayName) return
+    if (post.author !== user.displayName) return
     setLoading(true)
 
     // Delete files from storage
