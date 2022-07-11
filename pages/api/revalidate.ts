@@ -10,7 +10,7 @@ export default async function handler(
   }
 
   try {
-    await res.unstable_revalidate('/')
+    await res.unstable_revalidate('/home')
     return res.status(200).json({message: 'Revalidate successful'})
   } catch (error) {
     return res.status(500).json({message: 'Revalidate failed'})

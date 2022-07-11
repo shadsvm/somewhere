@@ -72,7 +72,7 @@ const Post = () => {
               on {dayjs(data.time).format('DD/MM/YYYY')}
             </div>
 
-            {user && data.author === user.displayName && (
+            {user && data.author_uid === user.uid && (
             <div className="relative ">
               {menu && (
                 <div className="absolute -top-24 -left-12 z-0 dark:bg-neutral-800 bg-neutral-200 overflow-hidden rounded-md flex flex-col items-start ">
