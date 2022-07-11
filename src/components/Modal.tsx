@@ -29,19 +29,19 @@ const Modal = ({post, closeModal }: {post:Post, closeModal: () => void}) => {
   
 
   return (
-    <main className="w-full h-full flex justify-center items-center shadow-lg">
-      <div className="max-w-sm md:max-w-md lg:max-w-lg bg-neutral-900 rounded overflow-hidden text-lg">
-        <header className="bg-black px-4 py-2">Are you sure about this?</header>
+    <main className="w-full h-full flex justify-center items-center shadow-2xl">
+      <div className="max-w-sm md:max-w-md lg:max-w-lg bg-neutral-100 dark:bg-neutral-900 rounded overflow-hidden text-lg">
+        <header className="bg-neutral-300 dark:bg-black px-4 py-2">Are you sure about this?</header>
         <p className="px-4 py-4 mb-5 font-normal">
-          This action is inreversible, after you will press <code className="bg-neutral-700 p-1 rounded">Delete</code> button, 
+          This action is inreversible, after you will press <code className="bg-neutral-200 dark:bg-neutral-700 p-1 rounded">Delete</code> button, 
           this post will be deleted permanently!
           You wont be able to restore it afterwards.
         </p>
         <div className="flex items-center justify-end gap-2 p-2">
-          <button disabled={loading} onClick={deletePost} className={`px-3 py-1 rounded bg-red-500 ${loading ? 'bg-red-600' : 'hover:bg-red-600'} `}>
+          <button disabled={loading} onClick={deletePost} className={`px-3 py-1 rounded text-white bg-red-500 transition duration-200 ${loading ? 'bg-red-600' : 'hover:bg-red-600'} `}>
             {loading ? <CgSpinner className='animate-spin text-3xl mx-3' /> : 'Delete'}
           </button>
-          <button disabled={loading} onClick={closeModal} className="px-3 py-1 border border-neutral-400 rounded text-neutral-400 hover:text-white hover:border-white ">Cancel</button>
+          <button disabled={loading} onClick={closeModal} className="px-3 py-1 border rounded border-neutral-400 text-neutral-600 dark:text-neutral-400 hover:text-black hover:border-black  dark:hover:text-white dark:hover:border-white transition duration-200">Cancel</button>
         </div>
       </div>
     </main>

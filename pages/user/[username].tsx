@@ -22,7 +22,7 @@ const Profile = () => {
     
     const fetchPosts = async () => {
       setLoading(true)
-      const q = query(collection(database, "posts"), where("user", "==", username));
+      const q = query(collection(database, "posts"), where("author", "==", username));
       const response = await getDocs(q)
       if (!response.size) return router.push('/error')
 
@@ -48,7 +48,7 @@ const Profile = () => {
       <div className='container mx-auto flex-1 flex flex-col p-5'>
 
         <header className='flex flex-col items-center gap-3 py-10 text-3xl'>
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-teal-500 flex justify-center items-center">{username[0]}</div>
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br text-white from-indigo-500 to-teal-500 flex justify-center items-center">{username[0]}</div>
           <div>{username}</div>
         </header>
 

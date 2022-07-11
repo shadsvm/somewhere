@@ -75,9 +75,9 @@ const Post = () => {
             {user && data.author === user.displayName && (
             <div className="relative ">
               {menu && (
-                <div className="absolute -top-24 -left-12 z-0 bg-neutral-800 overflow-hidden rounded-md flex flex-col items-start ">
-                  <button className="w-full flex items-center gap-1 px-3 py-2 hover:bg-neutral-900"><AiOutlineEdit />Edit</button>
-                  <button onClick={() => setModal(true)} className="w-full flex items-center gap-1 px-3 py-2 hover:bg-neutral-900 hover:text-red-400"><AiOutlineDelete /> Delete</button>
+                <div className="absolute -top-24 -left-12 z-0 dark:bg-neutral-800 bg-neutral-200 overflow-hidden rounded-md flex flex-col items-start ">
+                  <button className="w-full flex items-center gap-1 px-3 py-2 hover:bg-neutral-300 dark:hover:bg-neutral-900 transition duration-100"><AiOutlineEdit />Edit</button>
+                  <button onClick={() => setModal(true)} className="w-full flex items-center gap-1 px-3 py-2 hover:bg-neutral-300 dark:hover:bg-neutral-900 transition duration-100 hover:text-red-500 dark:hover:text-red-400"><AiOutlineDelete /> Delete</button>
                 </div>
               )}
               <TbDots className="text-2xl" onClick={() => setMenu(!menu)} />
