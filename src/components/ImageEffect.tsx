@@ -11,7 +11,7 @@ const ImageEffect = ({src, alt=''}: {src:any, alt?:string}) => {
       src={src}
       alt={alt} priority
       className={classCombo(
-        ' group-hover:scale-105 ease-in-out duration-700 rounded-lg', 
+        ' group-hover:scale-105 ease-in-out duration-700 rounded-lg bg-neutral-900', 
         loading ? 'blur-md grayscale' : '')} 
 
       layout="fill" objectFit="cover"

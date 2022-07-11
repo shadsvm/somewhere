@@ -28,6 +28,9 @@ const Create = () => {
   const title = useRef<HTMLInputElement>(null)
 
   const handleImg = (evt: any) => {
+    setImages([])
+    setFiles([])
+    if (!evt.target.files) return
     for (let file of evt.target.files){
       try {
         if (file.type.split('/')[0] !== 'image') throw Error('This file is no an image')
@@ -51,26 +54,24 @@ const Create = () => {
     setLoading(true)
     
     const id = v4()
-    const urls = []
+    const uploadedImages:any = {}
 
     for (let file of files) {
-      console.log('Current File: ', file);
-      
       const imageRef = ref(storage, 'images/' + file.name)
       const uploadResult = await uploadBytes(imageRef, file)
       const imageUrl = await getDownloadURL(uploadResult.ref)
-      urls.push( imageUrl )
+      uploadedImages[file.name] = imageUrl
     }
 
-    console.log('URLs of files pushed to storage', urls);
+    // console.log('URLs of files pushed to storage', uploadedImages);
 
     await setDoc(doc(database, "posts", id), {
       id: id,
-      urls: urls,
+      time: dayjs().format(),
       user: user.displayName,
       city: city.current?.value.toLowerCase(),
       title: title.current?.value,
-      time: dayjs().format(),
+      images: uploadedImages,
       rating: {
         [user.displayName]: rating
       }
@@ -80,7 +81,6 @@ const Create = () => {
     const url = typeof window === 'undefined' ? process.env.NEXT_PUBLIC_URL : window.location.origin
     await fetch(url + `/api/revalidate?key=${process.env.NEXT_PUBLIC_REVALIDATE_KEY}`)
     
-    setLoading(false)
     router.push('/home')  
   }
 
@@ -88,11 +88,6 @@ const Create = () => {
   useEffect(() => {
     if (!user) router.push('/login')
   }, [user])
-
-  useEffect(() => {
-    console.log(files, images);
-  }, [files, images])
-
 
 
 
