@@ -24,6 +24,11 @@ const Modal = ({post, closeModal }: {post:Post, closeModal: () => void}) => {
 
     // Delete document from firestore
     await deleteDoc(doc(database, 'posts', post.id))
+
+    // It's not secure solution. In future revalidation will be invoked by firebase functions.  
+    const url = typeof window === 'undefined' ? process.env.NEXT_PUBLIC_URL : window.location.origin
+    await fetch(url + `/api/revalidate?key=${process.env.NEXT_PUBLIC_REVALIDATE_KEY}`)
+
     router.push('/home')
   }
   

@@ -93,9 +93,9 @@ const Create = () => {
 
 
   return user && (
-    <div className="flex-1 flex flex-col justify-center items-center p-5">
+    <div className="flex-1 flex flex-col justify-center items-center py-1 md:py-5">
 
-      <div className="flex flex-col gap-6 w-10/12 sm:w-7/12 lg:w-5/12 xl:w-4/12 overflow-auto">
+      <div className="flex flex-col gap-6 w-11/12 sm:w-7/12 lg:w-5/12 xl:w-4/12 overflow-auto">
 
         {/* Preview */}
         {images.length > 0 && <Carousel images={images} /> }
@@ -119,7 +119,7 @@ const Create = () => {
             multiple accept="image/*" />
 
             {images.length > 0 && (<>
-              <button type="submit" disabled={loading} className="col-span-1 flex justify-center items-center px-4 py-1 text-white bg-emerald-500 hover:bg-emerald-600 rounded-full">{loading ? <CgSpinner className="text-2xl animate-spin" /> : 'Upload'}</button>
+              <button type="submit" disabled={loading} className="col-span-1 flex justify-center items-center text-md sm:text-lg py-1  text-white bg-emerald-500 hover:bg-emerald-600 rounded-full">{loading ? <CgSpinner className="text-2xl animate-spin" /> : 'Upload'}</button>
               <input type="text" name="city"  disabled={loading} ref={city} required placeholder="City" className="col-span-2 w-full px-5 py-2 bg-neutral-100 dark:bg-neutral-700 font-normal rounded-full border-neutral-300 dark:border-neutral-600" />
               <Rating className="col-span-2 " userRating={rating} setUserRating={setRating}  />
               <input type="text" name="title"  disabled={loading} ref={title} required placeholder="Title" className="col-span-4 w-full px-5 py-2 bg-neutral-100 dark:bg-neutral-700 font-normal rounded-full border-neutral-300 dark:border-neutral-600" />
